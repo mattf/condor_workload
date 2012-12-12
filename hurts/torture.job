@@ -1,0 +1,7 @@
+universe = local
+cmd = pain
+args = $(duration) $(count) $(log_dir)
+output = pain_$(duration)_$(count).job.out
+error = pain_$(duration)_$(count).job.err
+log = pain_$(duration)_$(count).job.log
+queue

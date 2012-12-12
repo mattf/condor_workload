@@ -1,0 +1,21 @@
+The hertz workload
+------------------
+
+Generate a workload with expected job submission, start and completion
+rates
+
+/bin/sleep is used for this workload. The expectation is no meaningful
+memory, CPU or network load is generated on execute nodes.
+
+The workload produces a set job rate and randomly distributed writes
+across a set of 10,000 user log files.
+
+Usage -
+ $ condor_submit -a duration=<sleep args> \
+                 -a count=<#> \
+                 -a log_dir=<path to dir> \
+      torture.job
+
+The workload has an expected Hz of count / duration. With caveats,
+ . submission is not zero-cost, so Hz will be less than count/duration
+ . a pool with N cores cannot exceed N / duration Hz

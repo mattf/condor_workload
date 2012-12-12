@@ -1,0 +1,20 @@
+#!/bin/sh
+
+DURATION=${1:-15s}
+COUNT=${2:-100}
+LOG_DIR=${3:-$PWD}
+
+echo $DURATION $COUNT $LOG_DIR
+
+while [ true ]; do
+  (
+   echo "cmd = /bin/sleep"
+   echo "transfer_executable = false"
+   echo "args = $DURATION"
+   echo "log = $LOG_DIR/\$RANDOM_CHOICE(0,1,2,3,4,5,6,7,8,9)\$RANDOM_CHOICE(0,1,2,3,4,5,6,7,8,9)\$RANDOM_CHOICE(0,1,2,3,4,5,6,7,8,9).log"
+   echo "notification = error"
+   echo "requirements = TARGET.Arch=!=UNDEFINED"
+   echo "queue $COUNT"
+  ) | time condor_submit
+  sleep $DURATION
+done

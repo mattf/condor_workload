@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "time,seq,submission_hz,start_hz,complete_hz"
+while [ true ]; do
+   echo -n "$(date +%Y-%m-%dT%H:%M:%S%z),"
+   condor_status -sched \
+      -format '%d,' UpdateSequenceNumber \
+      -format '%f,' 'RecentJobsSubmitted / RecentStatsLifetime' \
+      -format '%f,' 'RecentJobsStarted / RecentStatsLifetime' \
+      -format '%f' 'RecentJobsCompleted / RecentStatsLifetime' \
+      -format '\n' True
+   sleep 15
+done
